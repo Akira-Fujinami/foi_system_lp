@@ -1,0 +1,75 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: myapp_frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - NEXT_PUBLIC_API_BASE_URL=http://localhost:8000
+      - WATCHPACK_POLLING=true
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: myapp_backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/var/www
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+      - DB_CONNECTION=mysql
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_DATABASE=foi_system_lp
+      - DB_USERNAME=myuser
+      - DB_PASSWORD=mypassword
+    depends_on:
+      - db
+    command: >
+      bash -lc "
+      if [ ! -f .env ]; then cp .env.example .env; fi &&
+      composer install &&
+      php artisan key:generate --force &&
+      php artisan serve --host=0.0.0.0 --port=8000
+      "
+
+  db:
+    image: mysql:8.4
+    container_name: myapp_db
+    restart: unless-stopped
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_DATABASE: foi_system_lp
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: mypassword
+      MYSQL_ROOT_PASSWORD: rootpassword
+    volumes:
+      - db_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: myapp_phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: rootpassword
+    depends_on:
+      - db
+
+volumes:
+  db_data:
