@@ -25,6 +25,41 @@
         h1 {
             margin: 0 0 20px;
         }
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .nav-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 14px;
+            border-radius: 10px;
+            background: #e2e8f0;
+            color: #0f172a;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+        }
+        .nav-link:hover {
+            background: #cbd5e1;
+        }
         form.filter {
             display: grid;
             grid-template-columns: 1fr 180px 120px;
@@ -76,6 +111,9 @@
         .pagination {
             margin-top: 20px;
         }
+        .logout-form {
+            margin: 0;
+        }
         @media (max-width: 900px) {
             form.filter {
                 grid-template-columns: 1fr;
@@ -91,11 +129,26 @@
 <body>
 <div class="container">
     <div class="card">
-        <form method="POST" action="{{ route('logout') }}">
-    @csrf
-    <button type="submit">ログアウト</button>
-</form>
-        <h1>お問い合わせ一覧</h1>
+        <div class="topbar">
+            <div class="topbar-left">
+                <h1>お問い合わせ一覧</h1>
+            </div>
+
+            <div class="topbar-right">
+                <a href="{{ route('admin.site-settings.logo.edit') }}" class="nav-link">
+                    ロゴ設定
+                </a>
+
+                <a href="{{ route('admin.faqs.index') }}" class="nav-link">
+                    FAQ管理
+                </a>
+
+                <form method="POST" action="{{ route('logout') }}" class="logout-form">
+                    @csrf
+                    <button type="submit">ログアウト</button>
+                </form>
+            </div>
+        </div>
 
         <form method="GET" action="{{ route('admin.contacts.index') }}" class="filter">
             <input

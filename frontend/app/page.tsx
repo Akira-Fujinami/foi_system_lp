@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type ContactForm = {
   name: string;
@@ -13,6 +13,17 @@ type ContactForm = {
   message: string;
   budget: string;
   timeline: string;
+};
+
+type SiteSettingsResponse = {
+  logo_url: string | null;
+  logo_alt: string;
+};
+
+type FaqItem = {
+  id: number;
+  question: string;
+  answer: string;
 };
 
 const initialForm: ContactForm = {
@@ -32,6 +43,12 @@ export default function FoiWebSystemLpPage() {
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
+  const [siteSettings, setSiteSettings] = useState<SiteSettingsResponse>({
+    logo_url: null,
+    logo_alt: "Fuji of Innovation ロゴ",
+  });
+  const [faqs, setFaqs] = useState<FaqItem[]>([]);
 
   const problems = [
     "Excel・紙・LINEでの管理がバラバラになっている",
@@ -128,25 +145,6 @@ export default function FoiWebSystemLpPage() {
     },
   ];
 
-  const faqs = [
-    {
-      q: "まだ何を作るべきか明確でなくても相談できますか？",
-      a: "可能です。現状の業務や課題を伺いながら、どこをシステム化するべきか一緒に整理します。",
-    },
-    {
-      q: "ホームページと管理機能をまとめてお願いできますか？",
-      a: "はい。公開サイトと管理画面、問い合わせ導線、更新機能まで一体でご相談いただけます。",
-    },
-    {
-      q: "小規模な依頼でも対応できますか？",
-      a: "対応可能です。最初は必要な機能だけ導入し、後から追加していく進め方にも対応しています。",
-    },
-    {
-      q: "公開後の修正や保守もお願いできますか？",
-      a: "はい。運用フェーズでの改修や機能追加も見据えたご相談が可能です。",
-    },
-  ];
-
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
@@ -198,6 +196,41 @@ export default function FoiWebSystemLpPage() {
     }
   };
 
+  useEffect(() => {
+    const apiBase =
+      process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000";
+
+    const fetchPublicData = async () => {
+      try {
+        const [settingsRes, faqsRes] = await Promise.all([
+          fetch(`${apiBase}/api/public/site-settings`, {
+            cache: "no-store",
+          }),
+          fetch(`${apiBase}/api/public/faqs`, {
+            cache: "no-store",
+          }),
+        ]);
+
+        if (settingsRes.ok) {
+          const settingsData: SiteSettingsResponse = await settingsRes.json();
+          setSiteSettings({
+            logo_url: settingsData.logo_url,
+            logo_alt: settingsData.logo_alt || "Fuji of Innovation ロゴ",
+          });
+        }
+
+        if (faqsRes.ok) {
+          const faqData: FaqItem[] = await faqsRes.json();
+          setFaqs(faqData);
+        }
+      } catch (error) {
+        console.error("公開データの取得に失敗しました", error);
+      }
+    };
+
+    fetchPublicData();
+  }, []);
+
   return (
     <main className="min-h-screen bg-white text-slate-900">
       <section className="relative overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 text-white">
@@ -206,14 +239,19 @@ export default function FoiWebSystemLpPage() {
         <div className="relative mx-auto max-w-7xl px-6 pt-6 md:px-10 md:pt-8">
           <header className="flex items-center">
             <a href="/" className="inline-flex items-center">
-              <Image
-                src="/images/FOI_logo.png"
-                alt="Fuji of Innovation ロゴ"
-                width={180}
-                height={60}
-                className="h-auto w-[110px] md:w-[135px]"
-                priority
-              />
+              {siteSettings.logo_url ? (
+                <Image
+                  src={siteSettings.logo_url}
+                  alt={siteSettings.logo_alt}
+                  width={180}
+                  height={60}
+                  className="h-auto w-[110px] md:w-[135px]"
+                  priority
+                  unoptimized
+                />
+              ) : (
+                <div className="text-lg font-semibold text-white">Fuji of Innovation</div>
+              )}
             </a>
           </header>
         </div>
@@ -436,17 +474,27 @@ export default function FoiWebSystemLpPage() {
             </h2>
           </div>
           <div className="mt-10 space-y-4">
-            {faqs.map((faq) => (
-              <div
-                key={faq.q}
-                className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm"
-              >
-                <h3 className="text-base font-semibold text-slate-900">
-                  {faq.q}
-                </h3>
-                <p className="mt-3 text-sm leading-7 text-slate-600">{faq.a}</p>
+            {faqs.length > 0 ? (
+              faqs.map((faq) => (
+                <div
+                  key={faq.id}
+                  className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm"
+                >
+                  <h3 className="text-base font-semibold text-slate-900">
+                    {faq.question}
+                  </h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-600">
+                    {faq.answer}
+                  </p>
+                </div>
+              ))
+            ) : (
+              <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+                <p className="text-sm leading-7 text-slate-600">
+                  FAQはまだ登録されていません。
+                </p>
               </div>
-            ))}
+            )}
           </div>
         </div>
       </section>
