@@ -26,6 +26,8 @@ type FaqItem = {
   answer: string;
 };
 
+type ComparisonMark = "circle" | "triangle" | string;
+
 const initialForm: ContactForm = {
   name: "",
   company: "",
@@ -49,13 +51,24 @@ export default function FoiWebSystemLpPage() {
     logo_alt: "Fuji of Innovation ロゴ",
   });
   const [faqs, setFaqs] = useState<FaqItem[]>([]);
-
-  const problems = [
-    "Excel・紙・LINEでの管理がバラバラになっている",
-    "問い合わせや予約対応が属人化している",
-    "既製品を入れても業務に合わない",
-    "ホームページだけでなく、管理機能までまとめて相談したい",
-  ];
+const problems = [
+  {
+    title: "Excel・紙・LINEでの管理がバラバラになっている",
+    icon: "🗂️",
+  },
+  {
+    title: "問い合わせや予約対応が属人化している",
+    icon: "📩",
+  },
+  {
+    title: "既製品を入れても業務に合わない",
+    icon: "🧩",
+  },
+  {
+    title: "ホームページだけでなく、管理機能までまとめて相談したい",
+    icon: "🖥️",
+  },
+];
 
   const services = [
     {
@@ -112,6 +125,148 @@ export default function FoiWebSystemLpPage() {
     "応募者管理・社内管理画面",
   ];
 
+  const benefits = [
+    {
+      title: "業務の一元化",
+      description:
+        "顧客情報、予約、問い合わせ、更新作業などをまとめて管理しやすくなります。",
+    },
+    {
+      title: "対応漏れの防止",
+      description:
+        "属人的な管理から脱却し、確認漏れや返信漏れ、引き継ぎ漏れを減らします。",
+    },
+    {
+      title: "手作業の削減",
+      description:
+        "Excel転記や手入力を減らし、日々の運用負荷を下げる仕組みを作ります。",
+    },
+    {
+      title: "将来の拡張がしやすい",
+      description:
+        "最初は必要最低限で導入し、運用しながら機能を追加できる構成で進められます。",
+    },
+  ];
+
+  const pricePlans = [
+    {
+      title: "小規模な業務改善ツール",
+      regularPrice: "通常 30万円〜",
+      campaignPrice: "10万円〜",
+      description:
+        "キャンペーン期間中の特別価格。まずは必要最低限の機能から導入したい方向けのプランです。",
+      items: ["簡易管理画面", "問い合わせ管理", "社内向け業務ツール"],
+    },
+    {
+      title: "予約・顧客管理システム",
+      regularPrice: "通常 50万円〜",
+      campaignPrice: "30万円〜",
+      description:
+        "キャンペーン期間中の特別価格。予約受付や顧客情報管理など、運用改善まで踏み込んだシステムです。",
+      items: ["予約受付機能", "顧客情報の一元管理", "通知・管理機能"],
+      featured: true,
+    },
+    {
+      title: "会員機能付きWebシステム",
+      regularPrice: "通常 80万円〜",
+      campaignPrice: "50万円〜",
+      description:
+        "キャンペーン期間中の特別価格。ログインやマイページなどを含む、より本格的な運用向けの開発です。",
+      items: ["ログイン・会員機能", "マイページ", "会員限定コンテンツ管理"],
+    },
+    {
+      title: "要件整理からの個別開発",
+      regularPrice: "",
+      campaignPrice: "別途お見積もり",
+      description:
+        "独自業務フローや複数機能の組み合わせが必要な場合に対応します。",
+      items: ["業務フロー整理", "独自要件への対応", "段階開発のご提案"],
+    },
+  ];
+
+  const cases = [
+    {
+      title: "予約受付を電話中心からWeb化",
+      industry: "サービス業・店舗向け",
+      description:
+        "電話や手書きで管理していた予約受付をWeb化し、受付状況や顧客情報をまとめて確認しやすくする構成です。",
+      points: ["予約状況を一覧化", "受付ミスの削減", "顧客情報の蓄積"],
+    },
+    {
+      title: "問い合わせ管理をExcelから一元化",
+      industry: "中小企業・個人事業主向け",
+      description:
+        "メールやフォーム、Excelで分散していた問い合わせ情報を、管理画面で確認・対応できる形に整理します。",
+      points: ["対応状況の見える化", "引き継ぎしやすい", "返信漏れ防止"],
+    },
+    {
+      title: "会員向けログインページを構築",
+      industry: "スクール・コミュニティ・会員制事業向け",
+      description:
+        "一般公開ページとは別に、会員ごとに使える専用機能や閲覧制限付きコンテンツを設計します。",
+      points: ["ログイン管理", "限定情報の表示", "会員向け導線の整理"],
+    },
+  ];
+
+  const comparisonRows = [
+    {
+      item: "初期費用",
+      budget: "抑えやすい",
+      nocode: "抑えやすい",
+      large: "高くなりやすい",
+      foi: "目的に応じて調整しやすい",
+      isSymbol: false,
+    },
+    {
+      item: "デザイン対応",
+      budget: "circle",
+      nocode: "triangle",
+      large: "circle",
+      foi: "circle",
+      isSymbol: true,
+    },
+    {
+      item: "業務に合わせた設計",
+      budget: "triangle",
+      nocode: "triangle",
+      large: "circle",
+      foi: "circle",
+      isSymbol: true,
+    },
+    {
+      item: "小さく始めやすさ",
+      budget: "circle",
+      nocode: "circle",
+      large: "triangle",
+      foi: "circle",
+      isSymbol: true,
+    },
+    {
+      item: "管理画面・業務機能",
+      budget: "triangle",
+      nocode: "circle",
+      large: "circle",
+      foi: "circle",
+      isSymbol: true,
+    },
+    {
+      item: "ホームページと一体設計",
+      budget: "triangle",
+      nocode: "triangle",
+      large: "circle",
+      foi: "circle",
+      isSymbol: true,
+    },
+    {
+      item: "公開後の改善相談",
+      budget: "triangle",
+      nocode: "triangle",
+      large: "circle",
+      foi: "circle",
+      isSymbol: true,
+    },
+  ];
+
   const flow = [
     {
       step: "01",
@@ -144,6 +299,33 @@ export default function FoiWebSystemLpPage() {
         "公開後も更新や改善を前提に、運用しやすい状態で引き渡します。",
     },
   ];
+
+  const renderComparisonMark = (value: ComparisonMark, isFoi = false) => {
+    const circleBorderClass = isFoi ? "border-sky-500" : "border-slate-500";
+    const triangleTextClass = isFoi ? "text-sky-500" : "text-slate-500";
+
+    if (value === "circle") {
+      return (
+        <span
+          className={`inline-block h-8 w-8 rounded-full border-[2.5px] ${circleBorderClass}`}
+          aria-label="対応"
+        />
+      );
+    }
+
+    if (value === "triangle") {
+      return (
+        <span
+          className={`inline-flex items-center justify-center text-[2.2rem] font-semibold leading-none ${triangleTextClass}`}
+          aria-label="一部対応"
+        >
+          △
+        </span>
+      );
+    }
+
+    return <span>{value}</span>;
+  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -202,7 +384,7 @@ export default function FoiWebSystemLpPage() {
 
     const fetchPublicData = async () => {
       try {
-        const [settingsRes, faqsRes] = await Promise.all([
+        const [settingsRes, faqsRes] = await Promise.allSettled([
           fetch(`${apiBase}/api/public/site-settings`, {
             cache: "no-store",
           }),
@@ -211,16 +393,16 @@ export default function FoiWebSystemLpPage() {
           }),
         ]);
 
-        if (settingsRes.ok) {
-          const settingsData: SiteSettingsResponse = await settingsRes.json();
+        if (settingsRes.status === "fulfilled" && settingsRes.value.ok) {
+          const settingsData: SiteSettingsResponse = await settingsRes.value.json();
           setSiteSettings({
             logo_url: settingsData.logo_url,
             logo_alt: settingsData.logo_alt || "Fuji of Innovation ロゴ",
           });
         }
 
-        if (faqsRes.ok) {
-          const faqData: FaqItem[] = await faqsRes.json();
+        if (faqsRes.status === "fulfilled" && faqsRes.value.ok) {
+          const faqData: FaqItem[] = await faqsRes.value.json();
           setFaqs(faqData);
         }
       } catch (error) {
@@ -250,7 +432,9 @@ export default function FoiWebSystemLpPage() {
                   unoptimized
                 />
               ) : (
-                <div className="text-lg font-semibold text-white">Fuji of Innovation</div>
+                <div className="text-lg font-semibold text-white">
+                  Fuji of Innovation
+                </div>
               )}
             </a>
           </header>
@@ -259,7 +443,10 @@ export default function FoiWebSystemLpPage() {
         <div className="relative mx-auto max-w-7xl px-6 pb-16 pt-8 md:px-10 md:pb-24 md:pt-10">
           <div className="grid items-center gap-8 lg:grid-cols-[1.05fr_0.95fr]">
             <div>
-              <h1 className="max-w-4xl text-4xl font-bold leading-tight md:text-6xl">
+              <p className="inline-flex rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold tracking-[0.18em] text-sky-300">
+                WEB SYSTEM DEVELOPMENT
+              </p>
+              <h1 className="mt-6 max-w-4xl text-4xl font-bold leading-tight md:text-6xl">
                 業務に合わせた
                 <span className="block text-sky-300">Webシステムを、実用的に。</span>
               </h1>
@@ -268,6 +455,7 @@ export default function FoiWebSystemLpPage() {
                 Fuji of Innovation は、見た目だけで終わらない、現場で使える
                 Webシステムを設計・開発します。
               </p>
+
               <div className="mt-8 flex flex-col gap-4 sm:flex-row">
                 <a
                   href="#contact"
@@ -276,11 +464,27 @@ export default function FoiWebSystemLpPage() {
                   無料相談をする
                 </a>
                 <a
-                  href="#services"
+                  href="#price"
                   className="inline-flex items-center justify-center rounded-2xl border border-white/20 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
                 >
-                  できることを見る
+                  料金の目安を見る
                 </a>
+              </div>
+
+              <div className="mt-8 grid max-w-2xl gap-3 sm:grid-cols-2">
+                {[
+                  "要件未整理でも相談OK",
+                  "小さく始める開発に対応",
+                  "HP＋管理機能を一体提案",
+                  "保守・改善も相談可能",
+                ].map((item) => (
+                  <div
+                    key={item}
+                    className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-slate-100"
+                  >
+                    {item}
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -312,34 +516,68 @@ export default function FoiWebSystemLpPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-20 md:px-10">
-        <div className="max-w-3xl">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-600">
-            Problems
-          </p>
-          <h2 className="mt-3 text-3xl font-bold md:text-4xl">
-            こんなお悩みはありませんか？
-          </h2>
-          <p className="mt-4 text-base leading-8 text-slate-600">
-            既製のツールでは合わない、管理がバラバラ、更新がしづらい。
-            Fuji of Innovation は、そうした現場の課題に対して、使いやすい形で
-            仕組みを整えます。
-          </p>
+<section className="mx-auto max-w-7xl px-6 py-20 md:px-10">
+  <div className="max-w-3xl">
+    <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-600">
+      Problems
+    </p>
+    <h2 className="mt-3 text-3xl font-bold md:text-4xl">
+      こんなお悩みはありませんか？
+    </h2>
+    <p className="mt-4 text-base leading-8 text-slate-600">
+      既製のツールでは合わない、管理がバラバラ、更新がしづらい。<br/>
+      Fuji of Innovation は、そうした現場の課題に対して、使いやすい形で仕組みを整えます。
+    </p>
+  </div>
+
+  <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+    {problems.map((problem) => (
+      <div
+        key={problem.title}
+        className="rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+      >
+        <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-sky-100 to-cyan-100 text-2xl shadow-sm">
+          <span aria-hidden>{problem.icon}</span>
         </div>
-        <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {problems.map((problem) => (
-            <div
-              key={problem}
-              className="rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm"
-            >
-              <div className="mb-4 h-10 w-10 rounded-2xl bg-sky-100" />
-              <p className="text-sm leading-7 text-slate-700">{problem}</p>
-            </div>
-          ))}
+        <p className="text-sm leading-7 text-slate-700">{problem.title}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
+      <section className="bg-slate-50 py-20">
+        <div className="mx-auto max-w-7xl px-6 md:px-10">
+          <div className="max-w-3xl">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-600">
+              Benefits
+            </p>
+            <h2 className="mt-3 text-3xl font-bold md:text-4xl">
+              導入後に期待できること
+            </h2>
+            <p className="mt-4 text-base leading-8 text-slate-600">
+              単に機能を増やすのではなく、日々の運用を楽にし、事業の流れを整えることを目指します。
+            </p>
+          </div>
+
+          <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+            {benefits.map((benefit) => (
+              <div
+                key={benefit.title}
+                className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-200"
+              >
+                <h3 className="text-lg font-semibold text-slate-900">
+                  {benefit.title}
+                </h3>
+                <p className="mt-3 text-sm leading-7 text-slate-600">
+                  {benefit.description}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section id="services" className="bg-slate-50 py-20">
+      <section id="services" className="py-20">
         <div className="mx-auto max-w-7xl px-6 md:px-10">
           <div className="max-w-3xl">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-600">
@@ -353,6 +591,7 @@ export default function FoiWebSystemLpPage() {
               Webシステム開発に対応しています。
             </p>
           </div>
+
           <div className="mt-10 grid gap-6 lg:grid-cols-2">
             {services.map((service) => (
               <div
@@ -386,6 +625,7 @@ export default function FoiWebSystemLpPage() {
               更新のしやすさ、事業へのつながりまで考えて設計します。
             </p>
           </div>
+
           <div className="grid gap-5 md:grid-cols-2">
             {strengths.map((strength) => (
               <div
@@ -404,28 +644,243 @@ export default function FoiWebSystemLpPage() {
         </div>
       </section>
 
-      <section className="bg-slate-950 py-20 text-white">
+      <section className="bg-slate-50 py-20">
         <div className="mx-auto max-w-7xl px-6 md:px-10">
           <div className="max-w-3xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-300">
-              Examples
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-600">
+              Comparison
             </p>
             <h2 className="mt-3 text-3xl font-bold md:text-4xl">
-              開発できるWebシステムの例
+              Fuji of Innovation が選ばれる理由
             </h2>
-            <p className="mt-4 text-base leading-8 text-slate-300">
-              フルスクラッチでの構築はもちろん、必要な機能から段階的に導入することも可能です。
+            <p className="mt-4 text-base leading-8 text-slate-600">
+              格安制作、既製ツール、大規模開発会社など、選択肢はいくつかあります。<br/>
+              Fuji of Innovation では、見た目だけでも、過剰な開発でもない、現場で使いやすいちょうどよい形をご提案します。
             </p>
           </div>
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {examples.map((example) => (
+
+          <div className="mt-10 overflow-x-auto rounded-3xl border border-slate-200 bg-white shadow-sm">
+            <table className="min-w-full border-collapse text-left">
+              <thead className="bg-slate-950 text-white">
+                <tr>
+                  <th className="px-5 py-4 text-sm font-semibold">項目</th>
+                  <th className="px-5 py-4 text-sm font-semibold">格安HP制作</th>
+                  <th className="px-5 py-4 text-sm font-semibold">
+                    ノーコード・既製ツール
+                  </th>
+                  <th className="px-5 py-4 text-sm font-semibold">
+                    大規模開発会社
+                  </th>
+                  <th className="px-5 py-4 text-sm font-semibold text-sky-300">
+                    Fuji of Innovation
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {comparisonRows.map((row, index) => (
+                  <tr
+                    key={row.item}
+                    className={index % 2 === 0 ? "bg-white" : "bg-slate-50"}
+                  >
+                    <th className="whitespace-nowrap px-5 py-4 text-sm font-semibold text-slate-900">
+                      {row.item}
+                    </th>
+
+                    <td
+                      className={`px-5 py-4 ${
+                        row.isSymbol
+                          ? "text-center align-middle"
+                          : "text-sm leading-7 text-slate-600"
+                      }`}
+                    >
+                      {row.isSymbol ? renderComparisonMark(row.budget) : row.budget}
+                    </td>
+
+                    <td
+                      className={`px-5 py-4 ${
+                        row.isSymbol
+                          ? "text-center align-middle"
+                          : "text-sm leading-7 text-slate-600"
+                      }`}
+                    >
+                      {row.isSymbol ? renderComparisonMark(row.nocode) : row.nocode}
+                    </td>
+
+                    <td
+                      className={`px-5 py-4 ${
+                        row.isSymbol
+                          ? "text-center align-middle"
+                          : "text-sm leading-7 text-slate-600"
+                      }`}
+                    >
+                      {row.isSymbol ? renderComparisonMark(row.large) : row.large}
+                    </td>
+
+                    <td
+                      className={`px-5 py-4 ${
+                        row.isSymbol
+                          ? "text-center align-middle"
+                          : "text-sm font-semibold leading-7 text-sky-700"
+                      }`}
+                    >
+                      {row.isSymbol ? renderComparisonMark(row.foi, true) : row.foi}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <p className="mt-4 text-xs leading-6 text-slate-500">
+            ※ 一般的な傾向をもとにした比較イメージです。案件内容や依頼先により異なります。
+          </p>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-6 py-20 md:px-10">
+        <div className="max-w-3xl">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-600">
+            Examples
+          </p>
+          <h2 className="mt-3 text-3xl font-bold md:text-4xl">
+            開発できるWebシステムの例
+          </h2>
+          <p className="mt-4 text-base leading-8 text-slate-600">
+            フルスクラッチでの構築はもちろん、必要な機能から段階的に導入することも可能です。
+          </p>
+        </div>
+
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {examples.map((example) => (
+            <div
+              key={example}
+              className="rounded-3xl border border-slate-200 bg-white px-5 py-5 text-sm font-medium text-slate-900 shadow-sm"
+            >
+              {example}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="bg-slate-50 py-20">
+        <div className="mx-auto max-w-7xl px-6 md:px-10">
+          <div className="max-w-3xl">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-600">
+              Case
+            </p>
+            <h2 className="mt-3 text-3xl font-bold md:text-4xl">
+              実績・導入イメージ
+            </h2>
+            <p className="mt-4 text-base leading-8 text-slate-600">
+              まだ公開実績が多くない場合でも、どのような課題に対してどんな仕組みを作れるかをイメージしやすく整理しています。
+            </p>
+          </div>
+
+          <div className="mt-10 grid gap-6 lg:grid-cols-3">
+            {cases.map((item) => (
               <div
-                key={example}
-                className="rounded-3xl border border-white/10 bg-white/5 px-5 py-5 text-sm font-medium text-slate-100"
+                key={item.title}
+                className="rounded-3xl bg-white p-7 shadow-sm ring-1 ring-slate-200"
               >
-                {example}
+                <p className="text-sm font-semibold text-sky-600">{item.industry}</p>
+                <h3 className="mt-3 text-xl font-semibold text-slate-900">
+                  {item.title}
+                </h3>
+                <p className="mt-4 text-sm leading-7 text-slate-600">
+                  {item.description}
+                </p>
+
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {item.points.map((point) => (
+                    <span
+                      key={point}
+                      className="rounded-full bg-sky-50 px-3 py-1 text-xs font-semibold text-sky-700"
+                    >
+                      {point}
+                    </span>
+                  ))}
+                </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="price" className="py-20">
+        <div className="mx-auto max-w-7xl px-6 md:px-10">
+          <div className="max-w-3xl">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-600">
+              Price
+            </p>
+            <div className="mt-3 flex flex-wrap items-center gap-3">
+              <h2 className="text-3xl font-bold md:text-4xl">料金の目安</h2>
+              <span className="inline-flex rounded-full bg-rose-100 px-3 py-1 text-xs font-semibold text-rose-700">
+                キャンペーン価格
+              </span>
+            </div>
+            <p className="mt-4 text-base leading-8 text-slate-600">
+              現在キャンペーン中のため、通常価格より抑えた特別価格でご案内しています。<br/>
+              まずは必要な機能に絞って、小さく始められるプランをご用意しています。
+            </p>
+          </div>
+
+          <div className="mt-10 grid gap-6 lg:grid-cols-4">
+            {pricePlans.map((plan) => (
+              <div
+                key={plan.title}
+                className={`rounded-3xl border p-7 shadow-sm ${
+                  plan.featured
+                    ? "border-sky-500 bg-sky-50"
+                    : "border-slate-200 bg-white"
+                }`}
+              >
+                {plan.featured && (
+                  <span className="inline-flex rounded-full bg-sky-500 px-3 py-1 text-xs font-semibold text-white">
+                    おすすめ
+                  </span>
+                )}
+
+                <h3 className="mt-4 text-xl font-semibold text-slate-900">
+                  {plan.title}
+                </h3>
+
+                <div className="mt-4">
+                  {plan.regularPrice ? (
+                    <p className="text-sm font-medium text-slate-400 line-through">
+                      {plan.regularPrice}
+                    </p>
+                  ) : (
+                    <p className="text-sm font-medium text-transparent">—</p>
+                  )}
+
+                  <p className="mt-1 text-3xl font-bold text-slate-900">
+                    {plan.campaignPrice}
+                  </p>
+                </div>
+
+                <p className="mt-4 text-sm leading-7 text-slate-600">
+                  {plan.description}
+                </p>
+
+                <ul className="mt-5 space-y-2">
+                  {plan.items.map((item) => (
+                    <li
+                      key={item}
+                      className="rounded-2xl bg-white/80 px-4 py-3 text-sm text-slate-700 ring-1 ring-slate-200"
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-8 rounded-3xl border border-slate-200 bg-slate-50 p-6">
+            <p className="text-sm leading-7 text-slate-700">
+              ※ 上記はキャンペーン期間中の特別価格です。機能の範囲、ページ数、外部連携、
+              会員機能の有無などにより変動します。内容によっては別途お見積もりとなります。
+            </p>
           </div>
         </div>
       </section>
@@ -438,20 +893,19 @@ export default function FoiWebSystemLpPage() {
           <h2 className="mt-3 text-3xl font-bold md:text-4xl">
             ご相談から公開までの流れ
           </h2>
-          <p className="mt-4 text-base leading-8 text-slate-600">
+          <p className="mt-4 text-base leading-8 text-slate-600 whitespace-nowrap">
             システム化したい内容が曖昧な状態でも問題ありません。ヒアリングしながら、
             優先順位を整理してご提案します。
           </p>
         </div>
+
         <div className="mt-10 grid gap-6 lg:grid-cols-5">
           {flow.map((item) => (
             <div
               key={item.step}
               className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm"
             >
-              <div className="text-sm font-semibold text-sky-600">
-                {item.step}
-              </div>
+              <div className="text-sm font-semibold text-sky-600">{item.step}</div>
               <h3 className="mt-3 text-lg font-semibold text-slate-900">
                 {item.title}
               </h3>
@@ -464,168 +918,189 @@ export default function FoiWebSystemLpPage() {
       </section>
 
       <section className="bg-slate-50 py-20">
-        <div className="mx-auto max-w-5xl px-6 md:px-10">
-          <div className="max-w-3xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-600">
-              FAQ
-            </p>
-            <h2 className="mt-3 text-3xl font-bold md:text-4xl">
-              よくあるご質問
-            </h2>
-          </div>
-          <div className="mt-10 space-y-4">
-            {faqs.length > 0 ? (
-              faqs.map((faq) => (
-                <div
-                  key={faq.id}
-                  className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm"
-                >
-                  <h3 className="text-base font-semibold text-slate-900">
-                    {faq.question}
-                  </h3>
-                  <p className="mt-3 text-sm leading-7 text-slate-600">
-                    {faq.answer}
-                  </p>
-                </div>
-              ))
-            ) : (
-              <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-                <p className="text-sm leading-7 text-slate-600">
-                  FAQはまだ登録されていません。
-                </p>
-              </div>
-            )}
-          </div>
-        </div>
-      </section>
+  <div className="mx-auto max-w-7xl px-6 md:px-10">
+    <div className="max-w-3xl">
+      <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-600">
+        FAQ
+      </p>
+      <h2 className="mt-3 text-3xl font-bold md:text-4xl">
+        よくあるご質問
+      </h2>
+      <p className="mt-4 text-base leading-8 text-slate-600 md:whitespace-nowrap">
+        導入前によくいただくご質問をまとめています。要件が固まっていない場合でも、ご相談しながら進められます。
+      </p>
+    </div>
 
-      <section
-        id="contact"
-        className="bg-gradient-to-r from-sky-500 to-cyan-400 py-20 text-slate-950"
-      >
-        <div className="mx-auto max-w-5xl px-6 md:px-10">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-900/70">
-              Contact
-            </p>
-            <h2 className="mt-3 text-3xl font-bold md:text-5xl">
-              業務に合ったWebシステムを、
-              <span className="block">整理するところからご相談ください。</span>
-            </h2>
-            <p className="mx-auto mt-5 max-w-3xl text-base leading-8 text-slate-900/80">
-              何を作るべきか明確でない段階でも大丈夫です。現状の課題を伺いながら、
-              必要な機能や進め方をご提案します。
-            </p>
-          </div>
-
-          <form
-            onSubmit={handleSubmit}
-            className="mx-auto mt-10 max-w-3xl rounded-3xl bg-white/90 p-6 shadow-xl backdrop-blur md:p-8"
+    <div className="mt-10 grid w-full gap-4">
+      {faqs.length > 0 ? (
+        faqs.map((faq) => (
+          <div
+            key={faq.id}
+            className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-200"
           >
-            <div className="grid gap-5 md:grid-cols-2">
-              <div>
-                <label className="mb-2 block text-sm font-semibold">お名前 *</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={form.name}
-                  onChange={handleChange}
-                  className="w-full rounded-2xl border border-slate-300 px-4 py-3 outline-none focus:border-sky-500"
-                  required
-                />
-              </div>
+            <h3 className="text-base font-semibold text-slate-900">
+              {faq.question}
+            </h3>
+            <p className="mt-3 text-sm leading-7 text-slate-600">
+              {faq.answer}
+            </p>
+          </div>
+        ))
+      ) : (
+        <>
+          <div className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
+            <h3 className="text-base font-semibold text-slate-900">
+              サーバーやドメインの準備ができていなくても大丈夫ですか？
+            </h3>
+            <p className="mt-3 text-sm leading-7 text-slate-600">
+              はい、大丈夫です。サーバー・ドメインの契約状況を確認しながら、必要に応じて準備や構成のご相談にも対応します。
+            </p>
+          </div>
 
-              <div>
-                <label className="mb-2 block text-sm font-semibold">会社名</label>
-                <input
-                  type="text"
-                  name="company"
-                  value={form.company}
-                  onChange={handleChange}
-                  className="w-full rounded-2xl border border-slate-300 px-4 py-3 outline-none focus:border-sky-500"
-                />
-              </div>
+          <div className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
+            <h3 className="text-base font-semibold text-slate-900">
+              どのような業務システムを開発できますか？
+            </h3>
+            <p className="mt-3 text-sm leading-7 text-slate-600">
+              お問い合わせ管理、予約管理、顧客管理、勤怠管理、在庫管理、売上管理など、業務に合わせたシステム開発に対応しています。
+            </p>
+          </div>
+        </>
+      )}
+    </div>
+  </div>
+</section>
 
-              <div>
-                <label className="mb-2 block text-sm font-semibold">メールアドレス *</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={form.email}
-                  onChange={handleChange}
-                  className="w-full rounded-2xl border border-slate-300 px-4 py-3 outline-none focus:border-sky-500"
-                  required
-                />
-              </div>
+<section id="contact" className="bg-white py-20">
+  <div className="mx-auto max-w-7xl px-6 md:px-10">
+    <div className="max-w-4xl md:ml-8 lg:ml-12">
+      <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-600">
+        Contact
+      </p>
+      <h2 className="mt-3 text-3xl font-bold md:text-5xl">
+        <span className="block">ご相談内容に合わせてご提案します。</span>
+      </h2>
+      <p className="mt-5 max-w-3xl text-base leading-8 text-slate-600">
+        現在の運用方法、課題、作りたい機能、ご予算感などをもとに、
+        無理のない進め方をご提案します。
+      </p>
+    </div>
 
-              <div>
-                <label className="mb-2 block text-sm font-semibold">電話番号</label>
-                <input
-                  type="text"
-                  name="phone"
-                  value={form.phone}
-                  onChange={handleChange}
-                  className="w-full rounded-2xl border border-slate-300 px-4 py-3 outline-none focus:border-sky-500"
-                />
-              </div>
-
-              <div>
-                <label className="mb-2 block text-sm font-semibold">お問い合わせ種別</label>
-                <select
-                  name="inquiry_type"
-                  value={form.inquiry_type}
-                  onChange={handleChange}
-                  className="w-full rounded-2xl border border-slate-300 px-4 py-3 outline-none focus:border-sky-500"
-                >
-                  <option value="web_system">Webシステム開発</option>
-                  <option value="website">ホームページ制作</option>
-                  <option value="cms">CMS・更新機能</option>
-                  <option value="reservation">予約システム</option>
-                  <option value="customer_management">顧客管理</option>
-                  <option value="attendance">勤怠・業務管理</option>
-                  <option value="estimate">見積もり依頼</option>
-                  <option value="other">その他</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="mt-5">
-              <label className="mb-2 block text-sm font-semibold">ご相談内容 *</label>
-              <textarea
-                name="message"
-                value={form.message}
-                onChange={handleChange}
-                rows={6}
-                className="w-full rounded-2xl border border-slate-300 px-4 py-3 outline-none focus:border-sky-500"
-                placeholder="現在の課題、作りたい機能、希望内容などをご記入ください。"
-                required
-              />
-            </div>
-
-            {successMessage && (
-              <p className="mt-4 rounded-2xl bg-emerald-100 px-4 py-3 text-sm text-emerald-800">
-                {successMessage}
-              </p>
-            )}
-
-            {errorMessage && (
-              <p className="mt-4 rounded-2xl bg-red-100 px-4 py-3 text-sm text-red-700">
-                {errorMessage}
-              </p>
-            )}
-
-            <div className="mt-6">
-              <button
-                type="submit"
-                disabled={loading}
-                className="inline-flex items-center justify-center rounded-2xl bg-slate-950 px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-slate-900 disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                {loading ? "送信中..." : "お問い合わせを送信する"}
-              </button>
-            </div>
-          </form>
+    <form
+      onSubmit={handleSubmit}
+      className="mt-10 w-full rounded-3xl border border-slate-200 bg-white p-6 shadow-xl md:p-8"
+    >
+      <div className="grid gap-5 md:grid-cols-2">
+        <div>
+          <label className="mb-2 block text-sm font-semibold">お名前 *</label>
+          <input
+            type="text"
+            name="name"
+            value={form.name}
+            onChange={handleChange}
+            className="w-full rounded-2xl border border-slate-300 px-4 py-3 outline-none focus:border-sky-500"
+            required
+          />
         </div>
-      </section>
+
+        <div>
+          <label className="mb-2 block text-sm font-semibold">会社名</label>
+          <input
+            type="text"
+            name="company"
+            value={form.company}
+            onChange={handleChange}
+            className="w-full rounded-2xl border border-slate-300 px-4 py-3 outline-none focus:border-sky-500"
+          />
+        </div>
+
+        <div>
+          <label className="mb-2 block text-sm font-semibold">
+            メールアドレス *
+          </label>
+          <input
+            type="email"
+            name="email"
+            value={form.email}
+            onChange={handleChange}
+            className="w-full rounded-2xl border border-slate-300 px-4 py-3 outline-none focus:border-sky-500"
+            required
+          />
+        </div>
+
+        <div>
+          <label className="mb-2 block text-sm font-semibold">電話番号</label>
+          <input
+            type="text"
+            name="phone"
+            value={form.phone}
+            onChange={handleChange}
+            className="w-full rounded-2xl border border-slate-300 px-4 py-3 outline-none focus:border-sky-500"
+          />
+        </div>
+
+        <div>
+          <label className="mb-2 block text-sm font-semibold">
+            お問い合わせ種別
+          </label>
+          <select
+            name="inquiry_type"
+            value={form.inquiry_type}
+            onChange={handleChange}
+            className="w-full rounded-2xl border border-slate-300 px-4 py-3 outline-none focus:border-sky-500"
+          >
+            <option value="web_system">Webシステム開発</option>
+            <option value="website">ホームページ制作</option>
+            <option value="cms">CMS・更新機能</option>
+            <option value="reservation">予約システム</option>
+            <option value="customer_management">顧客管理</option>
+            <option value="attendance">勤怠・業務管理</option>
+            <option value="estimate">見積もり依頼</option>
+            <option value="other">その他</option>
+          </select>
+        </div>
+      </div>
+
+      <div className="mt-5">
+        <label className="mb-2 block text-sm font-semibold">ご相談内容 *</label>
+        <textarea
+          name="message"
+          value={form.message}
+          onChange={handleChange}
+          rows={6}
+          className="w-full rounded-2xl border border-slate-300 px-4 py-3 outline-none focus:border-sky-500"
+          placeholder="現在の課題、作りたい機能、希望内容などをご記入ください。"
+          required
+        />
+      </div>
+
+      {successMessage && (
+        <p className="mt-4 rounded-2xl bg-emerald-100 px-4 py-3 text-sm text-emerald-800">
+          {successMessage}
+        </p>
+      )}
+
+      {errorMessage && (
+        <p className="mt-4 rounded-2xl bg-red-100 px-4 py-3 text-sm text-red-700">
+          {errorMessage}
+        </p>
+      )}
+
+      <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-sm leading-7 text-slate-500">
+          要件未整理・概算相談・小規模なご相談でも問題ありません。
+        </p>
+        <button
+          type="submit"
+          disabled={loading}
+          className="inline-flex items-center justify-center rounded-2xl bg-slate-950 px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-slate-900 disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          {loading ? "送信中..." : "お問い合わせを送信する"}
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
     </main>
   );
 }
