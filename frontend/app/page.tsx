@@ -51,24 +51,25 @@ export default function FoiWebSystemLpPage() {
     logo_alt: "Fuji of Innovation ロゴ",
   });
   const [faqs, setFaqs] = useState<FaqItem[]>([]);
-const problems = [
-  {
-    title: "Excel・紙・LINEでの管理がバラバラになっている",
-    icon: "🗂️",
-  },
-  {
-    title: "問い合わせや予約対応が属人化している",
-    icon: "📩",
-  },
-  {
-    title: "既製品を入れても業務に合わない",
-    icon: "🧩",
-  },
-  {
-    title: "ホームページだけでなく、管理機能までまとめて相談したい",
-    icon: "🖥️",
-  },
-];
+
+  const problems = [
+    {
+      title: "Excel・紙・LINEでの管理がバラバラになっている",
+      icon: "🗂️",
+    },
+    {
+      title: "問い合わせや予約対応が属人化している",
+      icon: "📩",
+    },
+    {
+      title: "既製品を入れても業務に合わない",
+      icon: "🧩",
+    },
+    {
+      title: "ホームページだけでなく、管理機能までまとめて相談したい",
+      icon: "🖥️",
+    },
+  ];
 
   const services = [
     {
@@ -327,6 +328,13 @@ const problems = [
     return <span>{value}</span>;
   };
 
+  const scrollToId = (id: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const element = document.getElementById(id);
+    if (!element) return;
+    element.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
@@ -394,7 +402,8 @@ const problems = [
         ]);
 
         if (settingsRes.status === "fulfilled" && settingsRes.value.ok) {
-          const settingsData: SiteSettingsResponse = await settingsRes.value.json();
+          const settingsData: SiteSettingsResponse =
+            await settingsRes.value.json();
           setSiteSettings({
             logo_url: settingsData.logo_url,
             logo_alt: settingsData.logo_alt || "Fuji of Innovation ロゴ",
@@ -418,34 +427,33 @@ const problems = [
       <section className="relative overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 text-white">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(99,102,241,0.22),transparent_28%),radial-gradient(circle_at_left,rgba(14,165,233,0.18),transparent_24%)]" />
 
-        <div className="relative mx-auto max-w-7xl px-6 pt-6 md:px-10 md:pt-8">
-          <header className="flex items-center">
-            <a href="/" className="inline-flex items-center">
-              {siteSettings.logo_url ? (
-                <Image
-                  src={siteSettings.logo_url}
-                  alt={siteSettings.logo_alt}
-                  width={180}
-                  height={60}
-                  className="h-auto w-[110px] md:w-[135px]"
-                  priority
-                  unoptimized
-                />
-              ) : (
-                <div className="text-lg font-semibold text-white">
-                  Fuji of Innovation
-                </div>
-              )}
-            </a>
-          </header>
+        <div className="fixed inset-x-0 top-0 z-50">
+          <div className="mx-auto max-w-7xl px-6 pt-6 md:px-10 md:pt-8">
+            <header className="flex items-center justify-between gap-6">
+              <a href="/" className="inline-flex -translate-y-3 items-center">
+                {siteSettings.logo_url ? (
+                  <Image
+                    src={siteSettings.logo_url}
+                    alt={siteSettings.logo_alt}
+                    width={220}
+                    height={90}
+                    className="h-auto w-[120px] md:w-[150px]"
+                    priority
+                    unoptimized
+                  />
+                ) : (
+                  <div className="text-lg font-semibold text-white">
+                    Fuji of Innovation
+                  </div>
+                )}
+              </a>
+            </header>
+          </div>
         </div>
 
         <div className="relative mx-auto max-w-7xl px-6 pb-16 pt-8 md:px-10 md:pb-24 md:pt-10">
           <div className="grid items-center gap-8 lg:grid-cols-[1.05fr_0.95fr]">
-            <div>
-              <p className="inline-flex rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold tracking-[0.18em] text-sky-300">
-                WEB SYSTEM DEVELOPMENT
-              </p>
+            <div className="mt-6 md:mt-10">
               <h1 className="mt-6 max-w-4xl text-4xl font-bold leading-tight md:text-6xl">
                 業務に合わせた
                 <span className="block text-sky-300">Webシステムを、実用的に。</span>
@@ -459,12 +467,14 @@ const problems = [
               <div className="mt-8 flex flex-col gap-4 sm:flex-row">
                 <a
                   href="#contact"
+                  onClick={scrollToId("contact")}
                   className="inline-flex items-center justify-center rounded-2xl bg-sky-400 px-6 py-3 text-sm font-semibold text-slate-950 shadow-lg shadow-sky-500/20 transition hover:-translate-y-0.5 hover:bg-sky-300"
                 >
                   無料相談をする
                 </a>
                 <a
                   href="#price"
+                  onClick={scrollToId("price")}
                   className="inline-flex items-center justify-center rounded-2xl border border-white/20 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
                 >
                   料金の目安を見る
@@ -516,34 +526,35 @@ const problems = [
         </div>
       </section>
 
-<section className="mx-auto max-w-7xl px-6 py-20 md:px-10">
-  <div className="max-w-3xl">
-    <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-600">
-      Problems
-    </p>
-    <h2 className="mt-3 text-3xl font-bold md:text-4xl">
-      こんなお悩みはありませんか？
-    </h2>
-    <p className="mt-4 text-base leading-8 text-slate-600">
-      既製のツールでは合わない、管理がバラバラ、更新がしづらい。<br/>
-      Fuji of Innovation は、そうした現場の課題に対して、使いやすい形で仕組みを整えます。
-    </p>
-  </div>
-
-  <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-    {problems.map((problem) => (
-      <div
-        key={problem.title}
-        className="rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
-      >
-        <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-sky-100 to-cyan-100 text-2xl shadow-sm">
-          <span aria-hidden>{problem.icon}</span>
+      <section className="mx-auto max-w-7xl px-6 py-20 md:px-10">
+        <div className="max-w-3xl">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-600">
+            Problems
+          </p>
+          <h2 className="mt-3 text-3xl font-bold md:text-4xl">
+            こんなお悩みはありませんか？
+          </h2>
+          <p className="mt-4 text-base leading-8 text-slate-600">
+            既製のツールでは合わない、管理がバラバラ、更新がしづらい。
+            <br />
+            Fuji of Innovation は、そうした現場の課題に対して、使いやすい形で仕組みを整えます。
+          </p>
         </div>
-        <p className="text-sm leading-7 text-slate-700">{problem.title}</p>
-      </div>
-    ))}
-  </div>
-</section>
+
+        <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+          {problems.map((problem) => (
+            <div
+              key={problem.title}
+              className="rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+            >
+              <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-sky-100 to-cyan-100 text-2xl shadow-sm">
+                <span aria-hidden>{problem.icon}</span>
+              </div>
+              <p className="text-sm leading-7 text-slate-700">{problem.title}</p>
+            </div>
+          ))}
+        </div>
+      </section>
 
       <section className="bg-slate-50 py-20">
         <div className="mx-auto max-w-7xl px-6 md:px-10">
@@ -577,7 +588,7 @@ const problems = [
         </div>
       </section>
 
-      <section id="services" className="py-20">
+      <section id="services" className="scroll-mt-32 py-20">
         <div className="mx-auto max-w-7xl px-6 md:px-10">
           <div className="max-w-3xl">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-600">
@@ -610,7 +621,10 @@ const problems = [
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-20 md:px-10">
+      <section
+        id="strengths"
+        className="scroll-mt-32 mx-auto max-w-7xl px-6 py-20 md:px-10"
+      >
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-600">
@@ -654,7 +668,8 @@ const problems = [
               Fuji of Innovation が選ばれる理由
             </h2>
             <p className="mt-4 text-base leading-8 text-slate-600">
-              格安制作、既製ツール、大規模開発会社など、選択肢はいくつかあります。<br/>
+              格安制作、既製ツール、大規模開発会社など、選択肢はいくつかあります。
+              <br />
               Fuji of Innovation では、見た目だけでも、過剰な開発でもない、現場で使いやすいちょうどよい形をご提案します。
             </p>
           </div>
@@ -806,7 +821,7 @@ const problems = [
         </div>
       </section>
 
-      <section id="price" className="py-20">
+      <section id="price" className="scroll-mt-32 py-20">
         <div className="mx-auto max-w-7xl px-6 md:px-10">
           <div className="max-w-3xl">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-600">
@@ -819,7 +834,8 @@ const problems = [
               </span>
             </div>
             <p className="mt-4 text-base leading-8 text-slate-600">
-              現在キャンペーン中のため、通常価格より抑えた特別価格でご案内しています。<br/>
+              現在キャンペーン中のため、通常価格より抑えた特別価格でご案内しています。
+              <br />
               まずは必要な機能に絞って、小さく始められるプランをご用意しています。
             </p>
           </div>
@@ -885,7 +901,10 @@ const problems = [
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-20 md:px-10">
+      <section
+        id="flow"
+        className="scroll-mt-32 mx-auto max-w-7xl px-6 py-20 md:px-10"
+      >
         <div className="max-w-3xl">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-600">
             Flow
@@ -893,7 +912,7 @@ const problems = [
           <h2 className="mt-3 text-3xl font-bold md:text-4xl">
             ご相談から公開までの流れ
           </h2>
-          <p className="mt-4 text-base leading-8 text-slate-600 whitespace-nowrap">
+          <p className="mt-4 text-base leading-8 text-slate-600 md:whitespace-nowrap">
             システム化したい内容が曖昧な状態でも問題ありません。ヒアリングしながら、
             優先順位を整理してご提案します。
           </p>
@@ -917,190 +936,194 @@ const problems = [
         </div>
       </section>
 
-      <section className="bg-slate-50 py-20">
-  <div className="mx-auto max-w-7xl px-6 md:px-10">
-    <div className="max-w-3xl">
-      <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-600">
-        FAQ
-      </p>
-      <h2 className="mt-3 text-3xl font-bold md:text-4xl">
-        よくあるご質問
-      </h2>
-      <p className="mt-4 text-base leading-8 text-slate-600 md:whitespace-nowrap">
-        導入前によくいただくご質問をまとめています。要件が固まっていない場合でも、ご相談しながら進められます。
-      </p>
-    </div>
+      <section id="faq" className="scroll-mt-32 bg-slate-50 py-20">
+        <div className="mx-auto max-w-7xl px-6 md:px-10">
+          <div className="max-w-3xl">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-600">
+              FAQ
+            </p>
+            <h2 className="mt-3 text-3xl font-bold md:text-4xl">
+              よくあるご質問
+            </h2>
+            <p className="mt-4 text-base leading-8 text-slate-600 md:whitespace-nowrap">
+              導入前によくいただくご質問をまとめています。要件が固まっていない場合でも、ご相談しながら進められます。
+            </p>
+          </div>
 
-    <div className="mt-10 grid w-full gap-4">
-      {faqs.length > 0 ? (
-        faqs.map((faq) => (
-          <div
-            key={faq.id}
-            className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-200"
+          <div className="mt-10 grid w-full gap-4">
+            {faqs.length > 0 ? (
+              faqs.map((faq) => (
+                <div
+                  key={faq.id}
+                  className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-200"
+                >
+                  <h3 className="text-base font-semibold text-slate-900">
+                    {faq.question}
+                  </h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-600">
+                    {faq.answer}
+                  </p>
+                </div>
+              ))
+            ) : (
+              <>
+                <div className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
+                  <h3 className="text-base font-semibold text-slate-900">
+                    サーバーやドメインの準備ができていなくても大丈夫ですか？
+                  </h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-600">
+                    はい、大丈夫です。サーバー・ドメインの契約状況を確認しながら、必要に応じて準備や構成のご相談にも対応します。
+                  </p>
+                </div>
+
+                <div className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
+                  <h3 className="text-base font-semibold text-slate-900">
+                    どのような業務システムを開発できますか？
+                  </h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-600">
+                    お問い合わせ管理、予約管理、顧客管理、勤怠管理、在庫管理、売上管理など、業務に合わせたシステム開発に対応しています。
+                  </p>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" className="scroll-mt-32 bg-white py-20">
+        <div className="mx-auto max-w-7xl px-6 md:px-10">
+          <div className="max-w-4xl md:ml-8 lg:ml-12">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-600">
+              Contact
+            </p>
+            <h2 className="mt-3 text-3xl font-bold md:text-5xl">
+              <span className="block">ご相談内容に合わせてご提案します。</span>
+            </h2>
+            <p className="mt-5 max-w-3xl text-base leading-8 text-slate-600">
+              現在の運用方法、課題、作りたい機能、ご予算感などをもとに、
+              無理のない進め方をご提案します。
+            </p>
+          </div>
+
+          <form
+            onSubmit={handleSubmit}
+            className="mt-10 w-full rounded-3xl border border-slate-200 bg-white p-6 shadow-xl md:p-8"
           >
-            <h3 className="text-base font-semibold text-slate-900">
-              {faq.question}
-            </h3>
-            <p className="mt-3 text-sm leading-7 text-slate-600">
-              {faq.answer}
-            </p>
-          </div>
-        ))
-      ) : (
-        <>
-          <div className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
-            <h3 className="text-base font-semibold text-slate-900">
-              サーバーやドメインの準備ができていなくても大丈夫ですか？
-            </h3>
-            <p className="mt-3 text-sm leading-7 text-slate-600">
-              はい、大丈夫です。サーバー・ドメインの契約状況を確認しながら、必要に応じて準備や構成のご相談にも対応します。
-            </p>
-          </div>
+            <div className="grid gap-5 md:grid-cols-2">
+              <div>
+                <label className="mb-2 block text-sm font-semibold">
+                  お名前 *
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  value={form.name}
+                  onChange={handleChange}
+                  className="w-full rounded-2xl border border-slate-300 px-4 py-3 outline-none focus:border-sky-500"
+                  required
+                />
+              </div>
 
-          <div className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
-            <h3 className="text-base font-semibold text-slate-900">
-              どのような業務システムを開発できますか？
-            </h3>
-            <p className="mt-3 text-sm leading-7 text-slate-600">
-              お問い合わせ管理、予約管理、顧客管理、勤怠管理、在庫管理、売上管理など、業務に合わせたシステム開発に対応しています。
-            </p>
-          </div>
-        </>
-      )}
-    </div>
-  </div>
-</section>
+              <div>
+                <label className="mb-2 block text-sm font-semibold">会社名</label>
+                <input
+                  type="text"
+                  name="company"
+                  value={form.company}
+                  onChange={handleChange}
+                  className="w-full rounded-2xl border border-slate-300 px-4 py-3 outline-none focus:border-sky-500"
+                />
+              </div>
 
-<section id="contact" className="bg-white py-20">
-  <div className="mx-auto max-w-7xl px-6 md:px-10">
-    <div className="max-w-4xl md:ml-8 lg:ml-12">
-      <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-600">
-        Contact
-      </p>
-      <h2 className="mt-3 text-3xl font-bold md:text-5xl">
-        <span className="block">ご相談内容に合わせてご提案します。</span>
-      </h2>
-      <p className="mt-5 max-w-3xl text-base leading-8 text-slate-600">
-        現在の運用方法、課題、作りたい機能、ご予算感などをもとに、
-        無理のない進め方をご提案します。
-      </p>
-    </div>
+              <div>
+                <label className="mb-2 block text-sm font-semibold">
+                  メールアドレス *
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  value={form.email}
+                  onChange={handleChange}
+                  className="w-full rounded-2xl border border-slate-300 px-4 py-3 outline-none focus:border-sky-500"
+                  required
+                />
+              </div>
 
-    <form
-      onSubmit={handleSubmit}
-      className="mt-10 w-full rounded-3xl border border-slate-200 bg-white p-6 shadow-xl md:p-8"
-    >
-      <div className="grid gap-5 md:grid-cols-2">
-        <div>
-          <label className="mb-2 block text-sm font-semibold">お名前 *</label>
-          <input
-            type="text"
-            name="name"
-            value={form.name}
-            onChange={handleChange}
-            className="w-full rounded-2xl border border-slate-300 px-4 py-3 outline-none focus:border-sky-500"
-            required
-          />
+              <div>
+                <label className="mb-2 block text-sm font-semibold">電話番号</label>
+                <input
+                  type="text"
+                  name="phone"
+                  value={form.phone}
+                  onChange={handleChange}
+                  className="w-full rounded-2xl border border-slate-300 px-4 py-3 outline-none focus:border-sky-500"
+                />
+              </div>
+
+              <div>
+                <label className="mb-2 block text-sm font-semibold">
+                  お問い合わせ種別
+                </label>
+                <select
+                  name="inquiry_type"
+                  value={form.inquiry_type}
+                  onChange={handleChange}
+                  className="w-full rounded-2xl border border-slate-300 px-4 py-3 outline-none focus:border-sky-500"
+                >
+                  <option value="web_system">Webシステム開発</option>
+                  <option value="website">ホームページ制作</option>
+                  <option value="cms">CMS・更新機能</option>
+                  <option value="reservation">予約システム</option>
+                  <option value="customer_management">顧客管理</option>
+                  <option value="attendance">勤怠・業務管理</option>
+                  <option value="estimate">見積もり依頼</option>
+                  <option value="other">その他</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="mt-5">
+              <label className="mb-2 block text-sm font-semibold">
+                ご相談内容 *
+              </label>
+              <textarea
+                name="message"
+                value={form.message}
+                onChange={handleChange}
+                rows={6}
+                className="w-full rounded-2xl border border-slate-300 px-4 py-3 outline-none focus:border-sky-500"
+                placeholder="現在の課題、作りたい機能、希望内容などをご記入ください。"
+                required
+              />
+            </div>
+
+            {successMessage && (
+              <p className="mt-4 rounded-2xl bg-emerald-100 px-4 py-3 text-sm text-emerald-800">
+                {successMessage}
+              </p>
+            )}
+
+            {errorMessage && (
+              <p className="mt-4 rounded-2xl bg-red-100 px-4 py-3 text-sm text-red-700">
+                {errorMessage}
+              </p>
+            )}
+
+            <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <p className="text-sm leading-7 text-slate-500">
+                要件未整理・概算相談・小規模なご相談でも問題ありません。
+              </p>
+              <button
+                type="submit"
+                disabled={loading}
+                className="inline-flex items-center justify-center rounded-2xl bg-slate-950 px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-slate-900 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {loading ? "送信中..." : "お問い合わせを送信する"}
+              </button>
+            </div>
+          </form>
         </div>
-
-        <div>
-          <label className="mb-2 block text-sm font-semibold">会社名</label>
-          <input
-            type="text"
-            name="company"
-            value={form.company}
-            onChange={handleChange}
-            className="w-full rounded-2xl border border-slate-300 px-4 py-3 outline-none focus:border-sky-500"
-          />
-        </div>
-
-        <div>
-          <label className="mb-2 block text-sm font-semibold">
-            メールアドレス *
-          </label>
-          <input
-            type="email"
-            name="email"
-            value={form.email}
-            onChange={handleChange}
-            className="w-full rounded-2xl border border-slate-300 px-4 py-3 outline-none focus:border-sky-500"
-            required
-          />
-        </div>
-
-        <div>
-          <label className="mb-2 block text-sm font-semibold">電話番号</label>
-          <input
-            type="text"
-            name="phone"
-            value={form.phone}
-            onChange={handleChange}
-            className="w-full rounded-2xl border border-slate-300 px-4 py-3 outline-none focus:border-sky-500"
-          />
-        </div>
-
-        <div>
-          <label className="mb-2 block text-sm font-semibold">
-            お問い合わせ種別
-          </label>
-          <select
-            name="inquiry_type"
-            value={form.inquiry_type}
-            onChange={handleChange}
-            className="w-full rounded-2xl border border-slate-300 px-4 py-3 outline-none focus:border-sky-500"
-          >
-            <option value="web_system">Webシステム開発</option>
-            <option value="website">ホームページ制作</option>
-            <option value="cms">CMS・更新機能</option>
-            <option value="reservation">予約システム</option>
-            <option value="customer_management">顧客管理</option>
-            <option value="attendance">勤怠・業務管理</option>
-            <option value="estimate">見積もり依頼</option>
-            <option value="other">その他</option>
-          </select>
-        </div>
-      </div>
-
-      <div className="mt-5">
-        <label className="mb-2 block text-sm font-semibold">ご相談内容 *</label>
-        <textarea
-          name="message"
-          value={form.message}
-          onChange={handleChange}
-          rows={6}
-          className="w-full rounded-2xl border border-slate-300 px-4 py-3 outline-none focus:border-sky-500"
-          placeholder="現在の課題、作りたい機能、希望内容などをご記入ください。"
-          required
-        />
-      </div>
-
-      {successMessage && (
-        <p className="mt-4 rounded-2xl bg-emerald-100 px-4 py-3 text-sm text-emerald-800">
-          {successMessage}
-        </p>
-      )}
-
-      {errorMessage && (
-        <p className="mt-4 rounded-2xl bg-red-100 px-4 py-3 text-sm text-red-700">
-          {errorMessage}
-        </p>
-      )}
-
-      <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-sm leading-7 text-slate-500">
-          要件未整理・概算相談・小規模なご相談でも問題ありません。
-        </p>
-        <button
-          type="submit"
-          disabled={loading}
-          className="inline-flex items-center justify-center rounded-2xl bg-slate-950 px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-slate-900 disabled:cursor-not-allowed disabled:opacity-60"
-        >
-          {loading ? "送信中..." : "お問い合わせを送信する"}
-        </button>
-      </div>
-    </form>
-  </div>
-</section>
+      </section>
     </main>
   );
 }

@@ -155,7 +155,7 @@
                 type="text"
                 name="keyword"
                 value="{{ request('keyword') }}"
-                placeholder="名前・会社名・メール・件名・本文で検索"
+                placeholder="名前・会社名・メール・本文で検索"
             >
 
             <select name="status">
@@ -177,7 +177,6 @@
                 <th>会社名</th>
                 <th>メール</th>
                 <th>種別</th>
-                <th>件名</th>
                 <th>ステータス</th>
                 <th>詳細</th>
             </tr>
@@ -191,7 +190,6 @@
                     <td>{{ $contact->company }}</td>
                     <td>{{ $contact->email }}</td>
                     <td>{{ $contact->inquiry_type }}</td>
-                    <td>{{ $contact->subject }}</td>
                     <td>
                         @if ($contact->status === 'new')
                             <span class="badge badge-new">未対応</span>

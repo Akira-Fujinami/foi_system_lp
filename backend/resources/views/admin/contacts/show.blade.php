@@ -128,15 +128,6 @@
             <div class="label">お問い合わせ種別</div>
             <div>{{ $contact->inquiry_type ?: '—' }}</div>
 
-            <div class="label">件名</div>
-            <div>{{ $contact->subject ?: '—' }}</div>
-
-            <div class="label">ご予算</div>
-            <div>{{ $contact->budget ?: '—' }}</div>
-
-            <div class="label">希望時期</div>
-            <div>{{ $contact->timeline ?: '—' }}</div>
-
             <div class="label">ご相談内容</div>
             <div class="message">{{ $contact->message }}</div>
         </div>
