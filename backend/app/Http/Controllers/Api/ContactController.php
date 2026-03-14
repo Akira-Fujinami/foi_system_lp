@@ -24,11 +24,17 @@ class ContactController extends Controller
 
         $contact = Contact::create($validated);
 
-        Mail::to('akira.fujinami0302@gmail.com')
-            ->send(new ContactReceivedAdminMail($contact));
+        try {
+            Mail::to('akira.fujinami0302@gmail.com')
+                ->send(new ContactReceivedAdminMail($contact));
 
-        Mail::to($contact->email)
-            ->send(new ContactAutoReplyMail($contact));
+            Mail::to($contact->email)
+                ->send(new ContactAutoReplyMail($contact));
+        } catch (\Throwable $e) {
+            \Log::error('mail send failed', [
+                'message' => $e->getMessage(),
+            ]);
+        }
 
         return response()->json([
             'message' => 'お問い合わせを受け付けました。',

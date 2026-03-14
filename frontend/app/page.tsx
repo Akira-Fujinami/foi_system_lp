@@ -349,8 +349,9 @@ export default function FoiWebSystemLpPage() {
     setErrorMessage("");
 
     try {
-      const apiBase =
-        process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000";
+        const apiBase =
+          process.env.NEXT_PUBLIC_API_BASE_URL ||
+          "https://api.web-system.fujiofinnovation.com";
 
       const res = await fetch(`${apiBase}/api/contacts`, {
         method: "POST",
@@ -387,8 +388,9 @@ export default function FoiWebSystemLpPage() {
   };
 
   useEffect(() => {
-    const apiBase =
-      process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000";
+      const apiBase =
+        process.env.NEXT_PUBLIC_API_BASE_URL ||
+        "https://api.web-system.fujiofinnovation.com";
 
     const fetchPublicData = async () => {
       try {
