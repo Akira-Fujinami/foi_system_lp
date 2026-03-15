@@ -164,17 +164,17 @@ export default function FoiWebSystemLpPage() {
       regularPrice: "通常 50万円〜",
       campaignPrice: "30万円〜",
       description:
-        "キャンペーン期間中の特別価格。予約受付や顧客情報管理など、運用改善まで踏み込んだシステムです。",
-      items: ["予約受付機能", "顧客情報の一元管理", "通知・管理機能"],
+        "キャンペーン期間中の特別価格。予約受付や顧客情報管理、ログイン機能など、日々の運用改善まで踏み込んだシステムです。",
+      items: ["予約受付機能", "顧客情報の一元管理", "ログイン・マイページ機能", "通知・管理機能"],
       featured: true,
     },
     {
-      title: "会員機能付きWebシステム",
+      title: "AI活用・業務自動化システム",
       regularPrice: "通常 80万円〜",
       campaignPrice: "50万円〜",
       description:
-        "キャンペーン期間中の特別価格。ログインやマイページなどを含む、より本格的な運用向けの開発です。",
-      items: ["ログイン・会員機能", "マイページ", "会員限定コンテンツ管理"],
+        "キャンペーン期間中の特別価格。予約・顧客管理に加え、AIや自動化機能、分析機能、外部連携まで含めた本格的な業務改善向けプランです。",
+      items: ["AIチャット・自動返信", "顧客対応の自動化", "分析ダッシュボード", "外部サービス連携"],
     },
     {
       title: "要件整理からの個別開発",
@@ -528,9 +528,6 @@ export default function FoiWebSystemLpPage() {
           <div className="relative mx-auto max-w-7xl px-6 pb-16 pt-8 md:px-10 md:pb-24 md:pt-10">
             <div className="grid items-center gap-8 lg:grid-cols-[1.05fr_0.95fr]">
               <div className="mt-6 md:mt-10">
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-300">
-                  Web System Development
-                </p>
                 <h1 className="mt-6 max-w-4xl text-4xl font-bold leading-tight md:text-6xl">
                   業務に合わせた
                   <span className="block text-sky-300">
