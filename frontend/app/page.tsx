@@ -1134,46 +1134,6 @@ export default function FoiWebSystemLpPage() {
                     <option value="other">その他</option>
                   </select>
                 </div>
-
-                <div>
-                  <label className="mb-2 block text-sm font-semibold">
-                    ご予算感
-                  </label>
-                  <input
-                    type="text"
-                    name="budget"
-                    value={form.budget}
-                    onChange={handleChange}
-                    placeholder="例：30万円以内 / まずは相談"
-                    className="w-full rounded-2xl border border-slate-300 px-4 py-3 outline-none focus:border-sky-500"
-                  />
-                </div>
-
-                <div className="md:col-span-2">
-                  <label className="mb-2 block text-sm font-semibold">
-                    ご希望時期
-                  </label>
-                  <input
-                    type="text"
-                    name="timeline"
-                    value={form.timeline}
-                    onChange={handleChange}
-                    placeholder="例：2ヶ月以内 / できるだけ早く"
-                    className="w-full rounded-2xl border border-slate-300 px-4 py-3 outline-none focus:border-sky-500"
-                  />
-                </div>
-
-                <div className="md:col-span-2">
-                  <label className="mb-2 block text-sm font-semibold">件名</label>
-                  <input
-                    type="text"
-                    name="subject"
-                    value={form.subject}
-                    onChange={handleChange}
-                    placeholder="例：予約管理システムの相談"
-                    className="w-full rounded-2xl border border-slate-300 px-4 py-3 outline-none focus:border-sky-500"
-                  />
-                </div>
               </div>
 
               <div className="mt-5">
